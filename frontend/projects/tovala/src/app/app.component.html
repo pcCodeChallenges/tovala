@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+    <h1>Tovala Code Challenge</h1>
+    <mat-divider vertical="true"></mat-divider>
+
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+
+    <button mat-icon-button mat-button
+            *ngIf="user"
+            [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
