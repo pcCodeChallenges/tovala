@@ -1,0 +1,11 @@
+<div class="draggable-box"
+     cdkDragBoundary=".canvas-boundary"
+     cdkDrag
+     [cdkDragFreeDragPosition]="initialPoint"
+     [ngStyle]="{ 'background-color': boxBackgroundColor }">
+    <mat-menu #removeMenu="matMenu" yPosition="below">
+        <button mat-menu-item>Remove</button>
+    </mat-menu>
+
+    <span [matMenuTriggerFor]="removeMenu"></span>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Box } from '../box/box';
 
 @Component({
     templateUrl: './layouts.component.html',
@@ -12,4 +13,7 @@ export class LayoutsComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    layoutSaved(boxes: Array<Box>): void {
+        console.log(`${boxes.length} draggable boxes in the layout`);
+    }
 }
