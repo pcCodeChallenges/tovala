@@ -1,5 +1,5 @@
 import { Point } from '@angular/cdk/drag-drop/drag-ref';
-import { Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Box } from '../box/box';
 
@@ -16,6 +16,7 @@ export class DraggableBoxComponent implements OnChanges, OnInit {
     @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
 
     @Input() box: Box;
+    @Output() remove: EventEmitter<Box> = new EventEmitter<Box>();
 
     constructor() {
     }
@@ -36,7 +37,14 @@ export class DraggableBoxComponent implements OnChanges, OnInit {
     ngOnInit(): void {
         // Hex Color algorithm pilfered from
         // https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj
-        this.boxBackgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+        this.box.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
     }
 
+    boxDragEnd(event): void {
+        this.box.calculateNewPosition(event.distance);
+    }
+
+    removeBox(): void {
+        this.remove.emit(this.box);
+    }
 }

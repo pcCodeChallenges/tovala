@@ -7,7 +7,7 @@
     <div class="second-column">
         <div class="canvas-boundary">
             <div *ngFor="let box of boxes;">
-                <draggable-box [box]="box"></draggable-box>
+                <draggable-box [box]="box" (remove)="removeBox(box)"></draggable-box>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ export class LayoutCanvasComponent implements OnInit {
     private static readonly defaultDimensions: IDimensions =
         { topLeft: { x: 5, y: 5 } as Point, height: 75, width: 75 } as IDimensions;
 
-    readonly boxes: Array<Box>;
+    boxes: Array<Box>;
 
     @ViewChildren(DraggableBoxComponent) draggableBoxes:  QueryList<DraggableBoxComponent>;
 
@@ -33,5 +33,9 @@ export class LayoutCanvasComponent implements OnInit {
 
     saveLayout() {
         console.log('DraggableBoxComponents count', this.draggableBoxes.length);
+    }
+
+    removeBox(removedBox: Box) {
+        this.boxes = this.boxes.filter((box: Box) => box.id !== removedBox.id);
     }
 }
