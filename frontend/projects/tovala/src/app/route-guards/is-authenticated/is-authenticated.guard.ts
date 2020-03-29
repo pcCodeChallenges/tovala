@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+    ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree
+} from '@angular/router';
 import { User } from 'firebase';
 import { Observable, Subscription } from 'rxjs';
 

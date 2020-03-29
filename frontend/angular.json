@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tovala"
+    }
+  },
+  "defaultProject": "tovala",
+  "cli": {
+    "analytics": "cec79531-e183-4446-b056-66ffff963d13"
+  }
 }

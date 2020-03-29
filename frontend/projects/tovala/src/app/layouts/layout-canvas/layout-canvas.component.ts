@@ -1,5 +1,7 @@
 import { Point } from '@angular/cdk/drag-drop/drag-ref';
-import { Component, EventEmitter, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+    Component, EventEmitter, OnInit, Output, QueryList, ViewChildren
+} from '@angular/core';
 import { Box } from '../box/box';
 import { IDimensions } from '../dimensions/dimensions.interface';
 import { DraggableBoxComponent } from '../draggable-box/draggable-box.component';
@@ -21,14 +23,18 @@ export class LayoutCanvasComponent implements OnInit {
         new EventEmitter<Array<Box>>();
 
     constructor() {
-        this.boxes = new Array<Box>();
+        this.resetLayout();
     }
 
     ngOnInit(): void {
     }
 
     addSquare(): void {
-        this.boxes.push(new Box(LayoutCanvasComponent.defaultDimensions))
+        this.boxes.push(new Box(LayoutCanvasComponent.defaultDimensions.topLeft));
+    }
+
+    resetLayout(): void {
+        this.boxes = new Array<Box>();
     }
 
     saveLayout() {

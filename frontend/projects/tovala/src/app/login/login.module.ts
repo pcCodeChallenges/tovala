@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FirebaseUIModule } from 'firebaseui-angular';
+import { environment } from '../../environments/environment';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -15,7 +17,8 @@ import { LoginComponent } from './login/login.component';
         CommonModule,
         LoginRoutingModule,
         FirebaseUIModule,
-        MatButtonModule
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireAuthModule
     ]
 })
 export class LoginModule {

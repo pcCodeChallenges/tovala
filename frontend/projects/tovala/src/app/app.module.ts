@@ -15,7 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // the plugin exposes the two libraries as well. You can use those:
 import { firebase, firebaseui, FirebaseUIModule } from 'firebaseui-angular';
 
-
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +32,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ],
     credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 };
-
 
 @NgModule({
     declarations: [

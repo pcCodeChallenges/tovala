@@ -1,22 +1,39 @@
+import { CdkDrag } from '@angular/cdk/drag-drop';
 import { Point } from '@angular/cdk/drag-drop/drag-ref';
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+    Component, EventEmitter, HostListener, Input, OnChanges, Output,
+    SimpleChanges, ViewChild
+} from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Box } from '../box/box';
+import { IDraggableBox } from '../draggable-box.interface';
 
 @Component({
    selector: 'draggable-box',
    templateUrl: './draggable-box.component.html',
    styleUrls: ['./draggable-box.component.scss']
 })
-export class DraggableBoxComponent implements OnChanges, OnInit {
+export class DraggableBoxComponent {
 
-    boxBackgroundColor: string;
-    initialPoint: Point;
-
+    @ViewChild(CdkDrag) cdkDrag: CdkDrag;
     @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger;
 
     @Input() box: Box;
     @Output() remove: EventEmitter<Box> = new EventEmitter<Box>();
+
+    get draggableBox(): IDraggableBox {
+        return {
+            backgroundColor: this.box.backgroundColor,
+            topLeft: this.box.topLeft,
+            height: this.cdkDrag.element.nativeElement.clientHeight,
+            width: this.cdkDrag.element.nativeElement.clientWidth,
+        } as IDraggableBox;
+    }
+
+    set draggableBox(draggableBox: IDraggableBox) {
+        this.box.backgroundColor = draggableBox.backgroundColor;
+        this.box.topLeft = draggableBox.topLeft;
+    }
 
     constructor() {
     }
@@ -26,18 +43,6 @@ export class DraggableBoxComponent implements OnChanges, OnInit {
         event.preventDefault();
 
         this.menuTrigger.openMenu();
-    }
-
-    ngOnChanges(changesObj: SimpleChanges): void {
-        if (changesObj.box && changesObj.box.currentValue) {
-            this.initialPoint = this.box.topLeft;
-        }
-    }
-
-    ngOnInit(): void {
-        // Hex Color algorithm pilfered from
-        // https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj
-        this.box.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
     }
 
     boxDragEnd(event): void {
