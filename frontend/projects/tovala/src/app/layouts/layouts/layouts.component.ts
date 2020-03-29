@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Box } from '../box/box';
 
 @Component({
     templateUrl: './layouts.component.html',
     styleUrls: ['./layouts.component.scss']
 })
-export class LayoutsComponent implements OnInit {
+export class LayoutsComponent {
 
     constructor() {
-    }
-
-    ngOnInit(): void {
     }
 
     layoutSaved(boxes: Array<Box>): void {

@@ -15,8 +15,10 @@
 }
 
 .canvas-boundary {
-    width: 400px;
+    border: dotted #ccc 2px;
     height: 400px;
     max-width: 100%;
-    border: dotted #ccc 2px;
+    overflow: hidden;
+    position: relative;
+    width: 400px;
 }

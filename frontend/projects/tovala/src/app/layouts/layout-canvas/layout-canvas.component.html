@@ -2,13 +2,12 @@
     <div class="first-column">
         <button mat-stroked-button (click)="addSquare()">Add Square</button>
         <button mat-button (click)="saveLayout()">Save Layout</button>
+        <button mat-button (click)="resetLayout()">Reset Layout</button>
     </div>
 
     <div class="second-column">
         <div class="canvas-boundary">
-            <div *ngFor="let box of boxes;">
-                <draggable-box [box]="box" (remove)="removeBox(box)"></draggable-box>
-            </div>
+            <draggable-box *ngFor="let box of boxes;" [box]="box" (remove)="removeBox(box)"></draggable-box>
         </div>
     </div>
 </div>

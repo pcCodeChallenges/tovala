@@ -8,7 +8,9 @@ describe('LayoutCanvasComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [LayoutCanvasComponent]
+            declarations: [
+                LayoutCanvasComponent
+            ]
         }).compileComponents();
     }));
 
