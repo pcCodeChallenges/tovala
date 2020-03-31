@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { LayoutCanvasComponent } from './layout-canvas.component';
 
@@ -10,6 +11,9 @@ describe('LayoutCanvasComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 LayoutCanvasComponent
+            ],
+            imports: [
+                MatDialogModule
             ]
         }).compileComponents();
     }));

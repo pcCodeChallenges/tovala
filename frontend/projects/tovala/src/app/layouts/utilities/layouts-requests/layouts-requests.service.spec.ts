@@ -3,10 +3,12 @@ import {
 } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 import { Subscription } from 'rxjs';
+import { IBox } from '../../interfaces/box';
+import { ILayout } from '../../interfaces/layout';
+import { ISingleLayout } from '../../interfaces/single-layout';
+import { ILayouts } from '../api-interfaces/layouts';
 import { ApiPaths } from '../api-paths';
 import { Layout } from '../layout/layout';
-import { IBEBox } from '../server-interfaces/be-box';
-import { IBELayout } from '../server-interfaces/be-layout';
 
 import { LayoutsRequestsService } from './layouts-requests.service';
 
@@ -18,7 +20,7 @@ describe('LayoutsRequestsService', () => {
     let requestSubscription: Subscription;
 
     // Test Data
-    let testLayouts: Array<IBELayout>;
+    let testLayouts: Array<ILayout>;
 
     beforeEach(() => {
         testLayouts = [
@@ -36,9 +38,9 @@ describe('LayoutsRequestsService', () => {
                             y: 5
                         },
                         width: 75
-                    } as IBEBox
+                    } as IBox
                 ]
-            } as IBELayout,
+            } as ILayout,
             {
                 id: 'VlVXMhyi2nZVkNMjWymF',
                 name: 'Layout 2',
@@ -53,9 +55,9 @@ describe('LayoutsRequestsService', () => {
                             y: 5
                         },
                         width: 75
-                    } as IBEBox
+                    } as IBox
                 ]
-            } as IBELayout
+            } as ILayout
         ];
     });
 
@@ -85,7 +87,7 @@ describe('LayoutsRequestsService', () => {
         });
 
         it('should return an observable for the deleted layout', async(() => {
-            const testLayout: IBELayout = testLayouts[0];
+            const testLayout: ILayout = testLayouts[0];
 
             // Make an HTTP DELETE request
             requestSubscription = layoutsRequestsService.deleteLayout('1234567890')
@@ -97,16 +99,15 @@ describe('LayoutsRequestsService', () => {
             // The following `expectOne()` will match the request's URL.
             // If no requests or multiple requests matched that URL
             // `expectOne()` would throw.
-            const req: TestRequest = httpTestingController.expectOne(
-                ApiPaths.deleteLayout);
+            const req: TestRequest = httpTestingController.expectOne(`${ApiPaths.deleteLayout}?id=1234567890`);
 
             // Respond with mock data, causing Observable to resolve.
             // Subscribe callback asserts that correct data was returned.
-            req.flush(testLayout);
+            req.flush({ layout: testLayout }  as ISingleLayout);
         }));
     });
 
-    describe('deleteLayout', () => {
+    describe('getLayouts', () => {
         afterEach(() => {
             httpTestingController.verify();
 
@@ -122,7 +123,7 @@ describe('LayoutsRequestsService', () => {
                     const layoutIds: Array<string> =
                         layouts.map((layout: Layout) => layout.id);
                     const testLayoutIds: Array<string> =
-                        testLayouts.map((beLayout: IBELayout) => beLayout.id);
+                        testLayouts.map((beLayout: ILayout) => beLayout.id);
 
                     // When observable resolves, result should match test data
                     expect(layoutIds.join(',')).toEqual(testLayoutIds.join(','));
@@ -135,7 +136,7 @@ describe('LayoutsRequestsService', () => {
 
             // Respond with mock data, causing Observable to resolve.
             // Subscribe callback asserts that correct data was returned.
-            req.flush(testLayouts);
+            req.flush({ layouts: testLayouts } as ILayouts);
         }));
     });
 
@@ -149,7 +150,7 @@ describe('LayoutsRequestsService', () => {
         });
 
         it('should return an observable for the saved layout', async(() => {
-            const testLayout: IBELayout = testLayouts[0];
+            const testLayout: ILayout = testLayouts[0];
 
             // Make an HTTP POST request
             requestSubscription = layoutsRequestsService.saveLayout(testLayout)
@@ -165,7 +166,7 @@ describe('LayoutsRequestsService', () => {
 
             // Respond with mock data, causing Observable to resolve.
             // Subscribe callback asserts that correct data was returned.
-            req.flush(testLayout);
+            req.flush({ layout: testLayout }  as ISingleLayout);
         }));
     });
 });
