@@ -1,25 +1,43 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import {
+    MatDialog, MatDialogModule, MatDialogRef
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { IDeleteDialogData } from './delete-dialog-data.interface';
 
 import { DeleteLayoutComponent } from './delete-layout.component';
 
 describe('DeleteLayoutComponent', () => {
-    let component: DeleteLayoutComponent;
-    let fixture: ComponentFixture<DeleteLayoutComponent>;
+    let deleteLayoutComponent: DeleteLayoutComponent;
+    let deleteLayoutDialogRef: MatDialogRef<DeleteLayoutComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-                                           declarations: [DeleteLayoutComponent]
-                                       })
-               .compileComponents();
+            declarations: [
+                DeleteLayoutComponent
+            ],
+            imports: [
+                HttpClientTestingModule,
+                MatFormFieldModule,
+                FormsModule,
+                MatDialogModule,
+                NoopAnimationsModule
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DeleteLayoutComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+        const dialog: MatDialog = TestBed.inject(MatDialog);
+        deleteLayoutDialogRef = dialog.open(DeleteLayoutComponent, {
+            data: { layout: {} } as IDeleteDialogData
+        });
+        deleteLayoutComponent = deleteLayoutDialogRef.componentInstance;
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(deleteLayoutComponent instanceof DeleteLayoutComponent).toBeTruthy();
     });
 });

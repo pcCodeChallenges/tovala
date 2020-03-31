@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { IBox } from '../../interfaces/box';
+import { ILayout } from '../../interfaces/layout';
 import { Layout } from '../layout/layout';
 import { LayoutsRequestsService } from '../layouts-requests/layouts-requests.service';
-import { IBEBox } from '../server-interfaces/be-box';
-import { IBELayout } from '../server-interfaces/be-layout';
 
 import { LayoutsService } from './layouts.service';
 
@@ -57,7 +57,7 @@ describe('LayoutsService', () => {
 
     describe('saveLayout', () => {
         it('should call the saveLayout requester', () => {
-            const saveLayoutParams: IBELayout = {
+            const saveLayoutParams: ILayout = {
                 id: '9IoAtR3Vdur0vMQoeqEg',
                 name: 'Layout 1',
                 userId: '1',
@@ -71,9 +71,9 @@ describe('LayoutsService', () => {
                             y: 5
                         },
                         width: 75
-                    } as IBEBox
+                    } as IBox
                 ]
-            } as IBELayout;
+            } as ILayout;
 
             layoutsRequestsServiceSpy.saveLayout
                 .and.returnValue(of({} as Layout));

@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LayoutCanvasComponent } from '../layout-canvas/layout-canvas.component';
 import { LayoutsListComponent } from '../layouts-list/layouts-list.component';
 
@@ -17,7 +18,8 @@ describe('LayoutsComponent', () => {
                 LayoutsListComponent
             ],
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                MatDialogModule
             ]
         }).compileComponents();
     }));
