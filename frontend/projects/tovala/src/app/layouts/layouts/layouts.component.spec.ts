@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LayoutCanvasComponent } from '../layout-canvas/layout-canvas.component';
 import { LayoutsListComponent } from '../layouts-list/layouts-list.component';
@@ -14,6 +15,9 @@ describe('LayoutsComponent', () => {
                 LayoutCanvasComponent,
                 LayoutsComponent,
                 LayoutsListComponent
+            ],
+            imports: [
+                HttpClientTestingModule
             ]
         }).compileComponents();
     }));

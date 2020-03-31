@@ -1,6 +1,10 @@
+<p class="global-message" *ngIf="window['globalMessage']">{{window['globalMessage']}}</p>
+
 <h2>Let's create a Layout!</h2>
 
 <div class="dual-columns">
-    <layout-canvas (layoutUpdated)="layoutSaved($event)"></layout-canvas>
-    <layouts-list></layouts-list>
+    <layout-canvas [loadedLayout]="loadedLayout" (layoutSaved)="layoutSaved()"></layout-canvas>
+    <layouts-list
+        [refreshLayouts]="refreshLayouts"
+        (loadLayout)="loadLayout($event)"></layouts-list>
 </div>

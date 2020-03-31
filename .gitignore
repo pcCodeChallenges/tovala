@@ -1,4 +1,8 @@
-/backend/pkgs/
 /.idea
-/backend/.idea
-/frontend/.idea
+
+/backend/functions/src/service-accounts/tovala-pete-fb-firebase-adminsdk-rc6q7-e1364c09be.json
+/backend/**/node_modules
+
+/frontend/.firebase
+/frontend/dist
+/frontend/node_modules

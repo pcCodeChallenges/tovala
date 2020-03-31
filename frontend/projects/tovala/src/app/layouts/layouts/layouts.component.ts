@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Box } from '../box/box';
+import { Layout } from '../utilities/layout/layout';
 
 @Component({
     templateUrl: './layouts.component.html',
@@ -7,10 +7,20 @@ import { Box } from '../box/box';
 })
 export class LayoutsComponent {
 
+    window;
+    refreshLayouts: boolean;
+    loadedLayout: Layout;
+
     constructor() {
+        this.window = window;
+        this.window['globalMessage'] = '';
     }
 
-    layoutSaved(boxes: Array<Box>): void {
-        console.log(`${boxes.length} draggable boxes in the layout`);
+    layoutSaved(): void {
+        this.refreshLayouts = !this.refreshLayouts;
+    }
+
+    loadLayout(layout: Layout): void {
+        this.loadedLayout = layout;
     }
 }

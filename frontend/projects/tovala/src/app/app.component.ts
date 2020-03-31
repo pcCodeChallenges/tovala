@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from 'firebase';
 import { Subscription } from 'rxjs';
-import { authTokenKeyName } from './interceptors/http-auth/auth-token-key-name';
 
 @Component({
     selector: 'app-root',
@@ -36,9 +35,6 @@ export class AppComponent implements OnDestroy, OnInit {
             // Irrespective of whether or not the logout succeeds
             // clear the user object
             this.user = undefined;
-
-            // Clear the auth token from the local storage
-            localStorage.removeItem(authTokenKeyName);
         });
 
         this.router.navigate(['login']);

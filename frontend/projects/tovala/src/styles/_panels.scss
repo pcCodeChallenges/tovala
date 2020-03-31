@@ -1,0 +1,27 @@
+@import 'colors';
+
+.error-panel {
+    background-color: lightcoral;
+    border: solid 1px coral;
+    border-radius: 5px;
+    color: whitesmoke;
+    max-width: 300px;
+    // Not supported by IE at all, nor Edge until v.16
+    // But everyone else is reasonable
+    min-width: fit-content;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.global-message {
+    background-color: lightcyan;
+    border: solid 1px darkcyan;
+    border-radius: 5px;
+    color: $text-color;
+    max-width: 300px;
+    // Not supported by IE at all, nor Edge until v.16
+    // But everyone else is reasonable
+    min-width: fit-content;
+    padding: 10px;
+    word-wrap: break-word;
+}

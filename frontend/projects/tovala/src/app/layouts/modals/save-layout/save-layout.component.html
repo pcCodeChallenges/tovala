@@ -1,0 +1,20 @@
+<p mat-dialog-title>Save the Layout</p>
+
+<p class="error-panel" *ngIf="error">
+    An Error Occurred while Saving:<br>
+    {{error}}
+</p>
+
+<form novalidate>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Layout Name</mat-label>
+            <input name="layoutName" matInput #layoutName="ngModel" [(ngModel)]="layout.name" required>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button matDialogClose>Cancel</button>
+        <button mat-raised-button cdkFocusInitial [disabled]="layoutName.errors?.required" (click)="saveLayout()">Save
+        </button>
+    </div>
+</form>

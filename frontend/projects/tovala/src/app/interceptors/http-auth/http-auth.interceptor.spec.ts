@@ -1,7 +1,6 @@
 import { HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { authTokenKeyName } from './auth-token-key-name';
 
 import { HttpAuthInterceptor } from './http-auth.interceptor';
 
@@ -32,14 +31,6 @@ describe('HttpAuthInterceptor', () => {
     });
 
     describe('intercept', () => {
-        beforeEach(() => {
-            localStorage.setItem(authTokenKeyName, '123456789');
-        });
-
-        afterEach(() => {
-            localStorage.clear();
-        });
-
         it('should add the auth header to the request', (done: DoneFn) => {
             const testHttpRequest: HttpRequest<any> =
                 new HttpRequest<any>('GET', 'http://test.com');

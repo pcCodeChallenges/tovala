@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+    production: true,
     firebaseConfig: {
       apiKey: 'AIzaSyBIZPMjRTad8khUWXZQAiFUuH5jqenPVIA',
       authDomain: 'tovala-pete-fb.firebaseapp.com',

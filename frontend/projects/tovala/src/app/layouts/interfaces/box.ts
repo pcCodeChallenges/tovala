@@ -1,8 +1,9 @@
 import { Point } from '@angular/cdk/drag-drop/drag-ref';
 
-export interface IDraggableBox {
+export interface IBox {
+    id?: string;
     backgroundColor: string;
-    topLeft: Point;
     height: number;
+    topLeft: Point;
     width: number;
 }
