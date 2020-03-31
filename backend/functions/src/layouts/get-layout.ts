@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { getUser } from '../user-auth/get-user';
+import { IBox } from './interfaces/box';
+import { ILayout } from './interfaces/layout';
 
 const cors = require('cors')({origin: true});
 
@@ -15,19 +17,25 @@ export const getUsersLayout = async (layoutId: string, authHeader?: string) => {
     const layoutDocRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData> =
         collectionRef.doc(layoutId);
 
-    const layout = await layoutDocRef.get()
+    const layout: ILayout = await layoutDocRef.get()
         .then(async(layoutSnapshot: FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>) => {
             if (layoutSnapshot.exists) {
                 const layoutData: { name: string; userId: string; id: string; } =
                     layoutSnapshot.data() as { name: string; userId: string; id: string; };
                 const layoutBoxes = await layoutSnapshot.ref.collection('boxes').get()
                     .then((layoutsBoxesSnapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>) => {
-                        return layoutsBoxesSnapshot.docs.map(doc => doc.data());
+                        return layoutsBoxesSnapshot.docs
+                            .map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+                                return {
+                                    id: doc.id,
+                                    ...doc.data()
+                                } as IBox;
+                            });
                     });
 
-                return {...layoutData, boxes: layoutBoxes };
+                return {...layoutData, boxes: layoutBoxes } as ILayout;
             }
-            return;
+            throw 500;
         });
 
     if (layout) {
@@ -67,6 +75,7 @@ export const getLayout = functions.https.onRequest((req, resp) => {
                     break;
                 }
             }
+            throw exc;
         }
     });
 });
