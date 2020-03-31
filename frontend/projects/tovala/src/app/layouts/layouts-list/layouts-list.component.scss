@@ -1,0 +1,30 @@
+@import '../../../styles/colors';
+
+:host {
+    height: 470px;
+    margin: 10px 50px;
+    width: 100%;
+
+    ::ng-deep mat-card {
+        color: $text-color;
+        margin: 5px 0;
+    }
+}
+
+.loading-spinner {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.layouts {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 5px 15px 15px;
+}

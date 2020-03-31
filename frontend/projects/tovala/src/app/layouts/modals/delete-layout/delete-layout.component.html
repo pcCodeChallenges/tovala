@@ -1,0 +1,11 @@
+<p matDialogTitle>Are you sure you want to delete {{data?.layout?.name}}?</p>
+
+<p class="error-panel" *ngIf="error">
+    An Error Occurred while Saving:<br>
+    {{error}}
+</p>
+
+<div matDialogActions>
+    <button mat-button matDialogClose>Cancel</button>
+    <button mat-raised-button cdkFocusInitial (click)="deleteLayout()">Delete Layout</button>
+</div>

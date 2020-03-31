@@ -2,8 +2,9 @@ import {
     HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { authTokenKeyName } from './auth-token-key-name';
+import * as firebase from 'firebase';
+import { from, Observable } from 'rxjs';
+import { mergeAll } from 'rxjs/operators';
 
 /**
  * Append the auth header to every outgoing request
@@ -16,17 +17,23 @@ export class HttpAuthInterceptor implements HttpInterceptor {
     constructor() {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // Retrieve the auth header value from the UserAuthentication Service
-        const authHeader: string = localStorage.getItem(authTokenKeyName);
+        const currentFirebaseUser: firebase.User = firebase.auth().currentUser;
+        if (currentFirebaseUser) {
+            return from(currentFirebaseUser.getIdToken(true)
+                    .then((authToken: string) => {
+                        // Clone the request and set the new header in one step if the auth
+                        // header is defined.
+                        const authReq: HttpRequest<any> = req.clone({
+                            setHeaders: {
+                                Authorization: `Bearer ${authToken}`
+                            }
+                        });
 
-        // Clone the request and set the new header in one step if the auth
-        // header is defined.
-        const authReq: HttpRequest<any> =  authHeader ? req.clone({
-            setHeaders: {
-                Authorization: authHeader
-            }
-        }) : req;
+                        return next.handle(authReq);
+                    })
+            ).pipe(mergeAll());
+        }
 
-        return next.handle(authReq);
+        return next.handle(req);
     }
 }

@@ -9,7 +9,7 @@ export class Box {
     backgroundColor: string;
     topLeft: Point;
 
-    constructor(topLeft: Point) {
+    constructor(topLeft: Point, backgroundColor?: string) {
         // Create a "unique" Id for each box
         // This format allows for a maximum of
         // ~9 quadrillion (based upon the
@@ -19,7 +19,8 @@ export class Box {
 
         // Hex Color algorithm pilfered from
         // https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj
-        this.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+        this.backgroundColor = backgroundColor ? backgroundColor :
+            '#'+Math.floor(Math.random()*16777215).toString(16);
 
         this.topLeft = topLeft;
     }

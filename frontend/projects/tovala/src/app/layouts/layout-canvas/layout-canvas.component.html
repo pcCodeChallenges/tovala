@@ -1,13 +1,15 @@
-<div class="dual-column">
-    <div class="first-column">
-        <button mat-stroked-button (click)="addSquare()">Add Square</button>
-        <button mat-button (click)="saveLayout()">Save Layout</button>
-        <button mat-button (click)="resetLayout()">Reset Layout</button>
+<div class="dual-row">
+    <div class="first-row">
+        <button mat-raised-button (click)="addSquare()">Add Square</button>
+        <button mat-button (click)="saveLayout()" [disabled]="boxes?.length === 0">Save Layout</button>
+        <button mat-button (click)="resetLayout()" [disabled]="boxes?.length === 0">Reset Layout</button>
     </div>
 
-    <div class="second-column">
+    <div class="second-row">
         <div class="canvas-boundary">
-            <draggable-box *ngFor="let box of boxes;" [box]="box" (remove)="removeBox(box)"></draggable-box>
+            <draggable-box *ngFor="let box of boxes; index as i" [box]="box"
+                           [loadedSize]="loadedLayout?.boxes[i]"
+                           (remove)="removeBox(box)"></draggable-box>
         </div>
     </div>
 </div>

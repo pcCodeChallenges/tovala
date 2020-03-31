@@ -1,24 +1,30 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutsListComponent } from './layouts-list.component';
 
 describe('LayoutsListComponent', () => {
-    let component: LayoutsListComponent;
+    let layoutsListComponent: LayoutsListComponent;
     let fixture: ComponentFixture<LayoutsListComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [LayoutsListComponent]
+            declarations: [
+                LayoutsListComponent
+            ],
+            imports: [
+                HttpClientTestingModule
+            ]
         }).compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(LayoutsListComponent);
-        component = fixture.componentInstance;
+        layoutsListComponent = fixture.componentInstance;
         fixture.detectChanges();
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(layoutsListComponent instanceof LayoutsListComponent).toBeTruthy();
     });
 });

@@ -1,1 +1,16 @@
-<p>layouts-list works!</p>
+<h3>Your Layouts</h3>
+
+<div class="loading-spinner" *ngIf="loadingLayouts">
+    <mat-spinner></mat-spinner>
+    <h4>Loading Your Layouts</h4>
+</div>
+
+<div class="layouts">
+    <mat-card *ngFor="let layout of layouts; trackBy: layoutsTrackByFunc">
+        <mat-card-title>{{layout.name}}</mat-card-title>
+        <mat-card-actions>
+            <button mat-button matTooltip="Load the Layout" aria-label="Load the Layout" (click)="loadLayout.emit(layout)"><mat-icon>open_in_browser</mat-icon></button>
+            <button mat-button matTooltip="Delete the Layout" aria-label="Delete the Layout" (click)="deleteLayout(layout)"><mat-icon>delete</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+</div>

@@ -1,10 +1,10 @@
-.dual-column {
+.dual-row {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 
-    .first-column {
+    .first-row {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -15,7 +15,8 @@
 }
 
 .canvas-boundary {
-    border: dotted #ccc 2px;
+    background-color: #FFFFFF;
+    border: solid #ebebeb 2px;
     height: 400px;
     max-width: 100%;
     overflow: hidden;
