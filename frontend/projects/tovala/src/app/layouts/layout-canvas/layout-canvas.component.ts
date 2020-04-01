@@ -46,7 +46,6 @@ export class LayoutCanvasComponent implements OnChanges {
             this.boxes =
                 this.loadedLayout.boxes.map<Box>((box: IBox) =>
                     new Box(box.topLeft, box.backgroundColor));
-            this.unbindLoadedLayout();
         }
     }
 
