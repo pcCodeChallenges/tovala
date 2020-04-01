@@ -2,7 +2,8 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { getUser } from '../user-auth/get-user';
 import { getUsersLayout } from './get-layout';
-import { ILayout } from './interfaces/layout.interface';
+import { IBox } from './interfaces/box';
+import { ILayout } from './interfaces/layout';
 
 const cors = require('cors')({origin: true});
 
@@ -20,7 +21,7 @@ export const postLayout = functions.https.onRequest((req, resp) => {
                 await collectionRef.add(layoutDocument);
 
             await newLayoutDocRef.update({ userId: userRecord.uid });
-            layout.boxes.forEach(async box => {
+            layout.boxes.forEach(async (box: IBox) => {
                 await newLayoutDocRef.collection('boxes').add(box);
             });
 

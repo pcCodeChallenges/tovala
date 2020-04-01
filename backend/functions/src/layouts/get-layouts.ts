@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { getUser } from '../user-auth/get-user';
+import { IBox } from './interfaces/box';
+import { ILayout } from './interfaces/layout';
 
 const cors = require('cors')({origin: true});
 
@@ -21,14 +23,21 @@ export const getLayouts = functions.https.onRequest((req, resp) => {
                         usersLayout['id'] = document.id;
                         console.info('usersLayout', usersLayout);
 
-                        const usersLayoutBoxes = await document.ref.collection('boxes').get()
-                            .then((usersLayoutsBoxesSnapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>) => {
-                                return usersLayoutsBoxesSnapshot.docs.map(doc => doc.data());
-                            });
-                        return { ...usersLayout, boxes: usersLayoutBoxes };
+                        const usersLayoutBoxes: Array<FirebaseFirestore.DocumentData> =
+                            await document.ref.collection('boxes').get()
+                                .then((usersLayoutsBoxesSnapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>) => {
+                                    return usersLayoutsBoxesSnapshot.docs
+                                        .map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+                                            return {
+                                                id: doc.id,
+                                                ...doc.data()
+                                            } as IBox;
+                                        });
+                                });
+                        return { ...usersLayout, boxes: usersLayoutBoxes } as ILayout;
                     });
 
-                    const layouts = await Promise.all(layoutsPromises);
+                    const layouts: Array<ILayout> = await Promise.all(layoutsPromises);
 
                     resp.send({ layouts });
                 } else {
